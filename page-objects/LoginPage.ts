@@ -5,8 +5,7 @@ export class LoginPage{
     readonly passwordInput: Locator;
     readonly loginButton: Locator;
 
-    constructor(private readonly page: Page){
-        this.page = page;
+    constructor(readonly page: Page){
         this.userInput = this.page.getByTestId('username');
         this.passwordInput = this.page.getByPlaceholder('Password');
         this.loginButton = this.page.getByRole('button', {'name':"Login"});
