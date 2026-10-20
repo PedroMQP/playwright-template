@@ -1,9 +1,9 @@
 import {Locator, Page} from '@playwright/test'
 
 export class LoginPage{
-    readonly userInput: Locator;
-    readonly passwordInput: Locator;
-    readonly loginButton: Locator;
+    private readonly userInput: Locator;
+    private readonly passwordInput: Locator;
+    private readonly loginButton: Locator;
 
     constructor(readonly page: Page){
         this.userInput = this.page.getByTestId('username');
