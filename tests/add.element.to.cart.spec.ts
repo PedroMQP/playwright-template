@@ -1,6 +1,8 @@
 import { expect, test } from "../fixtures/page-objects"
-
-test.describe('Add element to cart', async () => {
+test.use({
+    storageState:{cookies:[], origins:[]}
+});
+test.describe('Add element to cart withou general config', async () => {
     const url = "https://www.saucedemo.com/";
     test.beforeEach(async ({po}) =>{
     await po.loginPage.page.goto(url);
