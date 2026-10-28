@@ -28,4 +28,7 @@ export class InventoryPage{
     async clickCartButton():Promise<void>{
         await this.cartButton.click();
     }
+    async getInventoryItemsAmount(): Promise<number>{
+        return await this.inventoryItem.count();
+    }
 }
