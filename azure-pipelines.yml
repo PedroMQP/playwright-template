@@ -1,0 +1,39 @@
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+
+pool:
+  name: 'LocalPool' # Apunta directamente a tu máquina local registrada
+
+steps:
+  # 1. Asegurar versión de Node.js
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
+    displayName: 'Instalar Node.js'
+
+  # 2. Instalar dependencias del proyecto
+  - script: |
+      npm ci
+    displayName: 'Instalar Dependencias (npm ci)'
+
+  # 3. Instalar navegadores de Playwright (si no están cacheados localmente)
+  - script: |
+      npx playwright install --with-deps
+    displayName: 'Instalar Navegadores de Playwright'
+
+  # 4. Ejecutar la suite de pruebas
+  - script: |
+      npx playwright test
+    displayName: 'Ejecutar Pruebas E2E de Playwright'
+
+  # 5. Publicar resultados en la pestaña de Tests de Azure DevOps
+  - task: PublishTestResults@2
+    condition: always() # Se ejecuta SIEMPRE, incluso si las pruebas fallan
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/results.xml'
+      failTaskOnFailedTests: true
+    displayName: 'Publicar Resultados en Azure DevOps'

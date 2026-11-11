@@ -16,7 +16,12 @@ export default defineConfig({
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter:[
+    ['list'], // Salida limpia en consola
+    ['junit', { outputFile: 'results.xml' }], // XML para Azure DevOps
+    ['html', { open: 'never' }] // Reporte HTML local (opcional)
+  ],
+   
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
