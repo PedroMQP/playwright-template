@@ -31,18 +31,10 @@ steps:
       testResultsFormat: 'JUnit'
       testResultsFiles: '**/results.xml'
       failTaskOnFailedTests: true
-    displayName: 'Publicar Resultados en Azure DevOps'
-- task: PublishTestResults@2
-    condition: always()
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**/results.xml'
-      failTaskOnFailedTests: true
     displayName: 'Publicar Resultados JUnit'
 
-  # Nuevo paso: Sube el reporte HTML con las capturas y trazas incrustadas
   - task: PublishPipelineArtifact@1
-    condition: always() # Se sube incluso si las pruebas fallan
+    condition: always()
     inputs:
       targetPath: 'playwright-report'
       artifact: 'PlaywrightReport'
